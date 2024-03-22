@@ -26,12 +26,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
     case 'POST':
         $data = json_decode(file_get_contents("php://input"));
 
-        if (!isValid($data)) {
-            http_response_code(400);
-            echo json_encode(["error" => "Dados de entrada inválidos."]);
-            break;
-        }
-
         if(isset($data->action)) {
             switch ($data->action) {
                 case 'registerClient':
@@ -40,6 +34,10 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
                 case 'updateClient':
                     updateClient($data);
+                    break;
+
+                case 'deleteClient':
+                    deleteClient($data);
                     break;
             }
 
@@ -106,6 +104,12 @@ function getMega($request) {
 }
 
 function registerMega($data) {
+    if (!isValid($data)) {
+        http_response_code(400);
+        echo json_encode(["error" => "Dados de entrada inválidos."]);
+        exit;
+    }
+
     $mega = new Mega();
 
     $mega->setNum1(intval($data->num1))
@@ -195,6 +199,23 @@ function findClientById($request) {
     } else {
         http_response_code(404);
         echo json_encode(["message" => "Nenhum dado encontrado."]);
+    }
+}
+
+function deleteClient($data) {
+    $client = new Client();
+
+    $client->setId(intval($data->id));
+
+    $repository = new ClientRepository();
+    $success = $repository->delete($client);
+
+    if ($success) {
+        http_response_code(200);
+        echo json_encode(["message" => "Cliente deletado com sucesso."]);
+    } else {
+        http_response_code(500);
+        echo json_encode(["message" => "Falha ao deletar cliente."]);
     }
 }
 
