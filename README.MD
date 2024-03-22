@@ -42,4 +42,4 @@ CREATE TABLE `mega` (
 
 ## Demo
 
-<img src="https://github.com/MarianeBS/crudSimples-PHP/blob/develop/demo.gif" style="width:48px;height:48px;">
+<img src="https://github.com/MarianeBS/crudSimples-PHP/blob/develop/demo.gif" style="width:100%;">
