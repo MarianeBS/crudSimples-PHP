@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="UTF-8">
+        <title>Teste de Carga com Fetch</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="./assets/css/style.css">
+    </head>
+
+    <body>
+        <main>
+            <section class="container mb-5">
+                <h1 class="mb-4">Teste de Carga</h1>
+
+                <hr>
+
+                <div id="count">0</div>
+
+                <button class="btn btn-primary my-4" onclick="iniciarTesteDeCarga()">Iniciar Teste de Carga</button>
+            </section>
+
+            <section class="container pb-5">
+                <h1 class="mb-4">Clientes</h1>
+
+                <hr>
+
+                <h2 class="text-secondary">Cadastro</h2>
+
+                <form id="formCreate">
+                    <input type="hidden" name="action" value="registerClient">
+
+                    <fieldset>
+                        <label class="form-label" for="name">Nome:</label>
+                        <input class="form-control" type="text" id="name" name="name" required>
+                    </fieldset>
+
+                    <fieldset>
+                        <label class="form-label" for="email">Email:</label>
+                        <input class="form-control" type="email" id="email" name="email" required>
+                    </fieldset>
+
+                    <fieldset>
+                        <label class="form-label" for="city">Cidade:</label>
+                        <input class="form-control" type="text" id="city" name="city" required>
+                    </fieldset>
+
+                    <fieldset>
+                        <label class="form-label" for="state">Estado:</label>
+                        <input class="form-control" type="text" id="state" name="state" required>
+                    </fieldset>
+
+                    <div class="alert alert-success d-none mt-4" role="alert" data-js="create-client-alert">
+                        Cliente cadastrado com sucesso!
+                    </div>
+
+                    <button class="btn btn-primary my-4" onclick="createClient(event)"> Cadastrar </button>
+                </form>
+
+                <h2 class="text-secondary">Atualizar</h2>
+                <form id="formUpdate">
+                    <input type="hidden" name="action" value="updateClient">
+
+                    <fieldset>
+                        <label class="form-label" for="id">ID:</label>
+                        <input class="form-control" type="number" id="id" name="id" required>
+                    </fieldset>
+
+                    <fieldset>
+                        <label class="form-label" for="name">Nome:</label>
+                        <input class="form-control" type="text" id="name" name="name" required>
+                    </fieldset>
+
+                    <fieldset>
+                        <label class="form-label" for="email">Email:</label>
+                        <input class="form-control" type="email" id="email" name="email" required>
+                    </fieldset>
+
+                    <fieldset>
+                        <label class="form-label" for="city">Cidade:</label>
+                        <input class="form-control" type="text" id="city" name="city" required>
+                    </fieldset>
+
+                    <fieldset>
+                        <label class="form-label" for="state">Estado:</label>
+                        <input class="form-control" type="text" id="state" name="state" required>
+                    </fieldset>
+
+                    <div class="alert alert-success d-none mt-4" role="alert" data-js="update-client-alert">
+                        Cliente atualizado com sucesso!
+                    </div>
+
+                    <button class="btn btn-primary my-4" onclick="updateClient(event)"> Atualizar </button>
+                </form>
+
+                <h2 class="text-secondary">Listar</h2>
+                <table class="table table-dark table-striped" data-js="table-client">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">E-mail</th>
+                            <th scope="col">Cidade</th>
+                            <th scope="col">Estado</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr data-model="tr">
+                            <th scope="row" data-field="id"></th>
+                            <td data-field="name">Mark</td>
+                            <td data-field="email">Otto</td>
+                            <td data-field="city">@mdo</td>
+                            <td data-field="state">@mdo</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2 class="text-secondary">Buscar pelo ID</h2>
+                <form id="formFindById">
+                    <input type="hidden" name="action" value="findClientById">
+
+                    <fieldset>
+                        <label class="form-label" for="id">ID:</label>
+                        <input class="form-control" type="number" id="id" name="id" required>
+                    </fieldset>
+
+                    <button class="btn btn-primary my-4" onclick="getClientById(event)"> Buscar </button>
+                </form>
+
+                <table class="table table-dark table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">E-mail</th>
+                            <th scope="col">Cidade</th>
+                            <th scope="col">Estado</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr data-model="tr">
+                            <th scope="row" data-js="id-by-id"></th>
+                            <td data-field="name" data-js="name-by-id"></td>
+                            <td data-field="email" data-js="email-by-id"></td>
+                            <td data-field="city" data-js="city-by-id"></td>
+                            <td data-field="state" data-js="state-by-id"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="./assets/js/app.js"></script>
+    </body>
+</html>
