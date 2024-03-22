@@ -149,6 +149,23 @@
                         </tr>
                     </tbody>
                 </table>
+
+                <h2 class="text-secondary">Deletar pelo ID</h2>
+                <form id="formDelete">
+                    <input type="hidden" name="action" value="deleteClient">
+
+                    <fieldset>
+                        <label class="form-label" for="id">ID:</label>
+                        <input class="form-control" type="number" id="id" name="id" required>
+                    </fieldset>
+
+                    <div class="alert alert-success d-none mt-4" role="alert" data-js="delete-client-alert">
+                        Cliente Deletado com sucesso!
+                    </div>
+
+                    <button class="btn btn-primary my-4" onclick="deleteClient(event)"> Deletar </button>
+                </form>
+
             </section>
         </main>
 

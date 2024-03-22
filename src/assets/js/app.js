@@ -17,6 +17,7 @@ async function createClient(event) {
         if (!response.ok) throw new Error('Erro na requisição');
 
         setTimeout(() => {
+            getAllClients();
             alert.classList.remove('d-none');
         }, 500);
     } catch (error) {
@@ -42,6 +43,7 @@ async function updateClient(event) {
         if (!response.ok) throw new Error('Erro na requisição');
 
         setTimeout(() => {
+            getAllClients();
             alert.classList.remove('d-none');
         }, 500);
     } catch (error) {
@@ -105,6 +107,33 @@ async function getClientById(event) {
         document.querySelector('[data-js="email-by-id"]').innerText = data.email;
         document.querySelector('[data-js="city-by-id"]').innerText  = data.cidade;
         document.querySelector('[data-js="state-by-id"]').innerText = data.estado;
+    } catch (error) {
+        console.error('Falha ao enviar requisição:', error);
+    }
+
+}
+
+async function deleteClient(event) {
+    event.preventDefault();
+
+    const alert    = document.querySelector('[data-js="delete-client-alert"');
+    const url      = "http://localhost/App/index.php";
+    const formData = new FormData(document.getElementById("formDelete"));
+
+    alert.classList.add('d-none');
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(Object.fromEntries(formData))
+        });
+
+        if (!response.ok) throw new Error('Erro na requisição');
+
+        setTimeout(() => {
+            getAllClients();
+            alert.classList.remove('d-none');
+        }, 500);
     } catch (error) {
         console.error('Falha ao enviar requisição:', error);
     }
